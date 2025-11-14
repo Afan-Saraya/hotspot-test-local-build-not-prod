@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: mobile-captive-portal
+    environment:
+      # Optional API key for currency provider; inject in Coolify secrets
+      - EXCHANGE_RATE_API_KEY=${EXCHANGE_RATE_API_KEY}
+      - NODE_ENV=production
+    expose:
+      - "3000"
+    volumes:
+      # Persist uploaded assets and content between restarts
+      - uploads:/app/public/assets
+      - content:/app/src/data
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  content:

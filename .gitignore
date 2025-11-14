@@ -1,0 +1,43 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds
+dist/
+build/
+.vite/
+.cache/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Docker
+*.pid
+*.seed
+*.tar
+
+# Local data & uploads
+public/assets/uploads/
+src/data/portalContent.json
+
+# Logs
+logs/
+*.log
+
+# Admin subproject
+Admin Dashboard with Tabs/node_modules/
+Admin Dashboard with Tabs/dist/
+Admin Dashboard with Tabs/build/
+Admin Dashboard with Tabs/.vite/

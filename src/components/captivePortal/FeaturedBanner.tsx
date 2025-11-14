@@ -1,0 +1,66 @@
+import React from 'react';
+import { ChevronRight } from 'lucide-react';
+import { Image } from '../Image';
+import type { HeroBanner, LanguageCode } from '../../types/portalContent';
+
+interface FeaturedBannerProps {
+  banner?: HeroBanner | null;
+  language: LanguageCode;
+}
+
+export const FeaturedBanner: React.FC<FeaturedBannerProps> = ({ banner, language }) => {
+  if (!banner) return null;
+
+  return (
+    <div className="featuredBanner px-6 pb-4 rounded-3xl">
+      {/* Slika */}
+      <Image
+        style={{ borderTopLeftRadius: '20px', WebkitBorderTopRightRadius: '20px' }}
+        src={banner.imageFile}
+        alt={banner[language === 'BA' ? 'titleBosnian' : 'titleEnglish']}
+        className="w-full h-auto object-cover object-center rounded-3xl"
+      />
+
+      {/* Tekst ispod slike */}
+      <div style={{ marginTop: '-10px', borderBottomLeftRadius: '20px', WebkitBorderBottomRightRadius: '20px' }} className="bg-white/10 backdrop-blur-md border border-red/15 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.6)] px-4  pb-3 space-y-2">
+        <div className="flex items-center gap-1">
+          <div className="h-1 w-1 rounded-full bg-gradient-to-r from-[#7A49F0] to-[#C86BFA] animate-pulse" />
+        </div>
+
+        <h3
+          className="text-base font-bold leading-snug font-sans drop-shadow-sm"
+          style={{ color: banner.titleColor, fontSize: '2vh' }}
+        >
+          {banner[language === 'BA' ? 'titleBosnian' : 'titleEnglish']}
+        </h3>
+
+        <p
+          className="text-[11px] leading-relaxed text-white/85"
+          style={{ color: banner.subtitleColor, fontSize: '1.6vh' }}
+        >
+          {banner[language === 'BA' ? 'subtitleBosnian' : 'subtitleEnglish']}
+        </p>
+
+        <div className="pt-1 mb-2" style={{display:'flex'}}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              banner.buttonLink && window.open(banner.buttonLink, '_blank');
+            }}
+            className="inline-flex items-center gap-1 rounded-full px-6 py-2.5 min-h-[44px] text-[13px] font-semibold uppercase tracking-wide whitespace-nowrap bg-gradient-to-r from-[#7A49F0] via-[#8F59F4] to-[#C86BFA] text-white shadow-md hover:shadow-purple-500/50 active:scale-95 transition-all"
+            style={{
+              paddingTop: '0.7vh',
+              paddingBottom: '0.9vh',
+              background: banner.buttonBackground,
+              color: banner.buttonTextColor,
+              fontSize: '2vh',
+              marginLeft:'auto'
+            }}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
