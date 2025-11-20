@@ -382,42 +382,7 @@ html {
     border-radius: 16px;
     margin-left: auto;
   }
-
-  @media (min-width: 768px) {
-    .card {
-      border-radius: 16px;
-      height: 200px;
-      width: 70%;
-      margin-left: auto;
-    }
-
-    .block-tall-4,
-    .block-tall-5 {
-      margin-right: auto;
-      margin-left: 0px;
-    }
-
-    .card-large {
-      width: 130%;
-      height: 415px;
-      border-radius: 16px;
-    }
-
-    .block-tall-3 {
-      margin-left: -30%;
-    }
   }
-
-  .btn {}
-
-  h3 {
-    font-size: 2vh;
-  }
-
-  p {
-    font-size: 1.2vh;
-  }
-}
 
 .editorPicks {
   margin-left: 30vh;
