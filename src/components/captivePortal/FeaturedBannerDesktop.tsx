@@ -12,13 +12,13 @@ export const FeaturedBannerDesktop: React.FC<FeaturedBannerDesktopProps> = ({ ba
   if (!banner) return null;
 
   return (
-    <div className="FeaturedBannerDesktop rounded-3xl">
+    <div className="FeaturedBannerDesktop rounded-3xl"style={{ borderTopLeftRadius: '10px',width:'30vw'}}>
       {/* Slika */}
       <Image
-        style={{ borderTopLeftRadius: '10px' }}
+        style={{ borderTopLeftRadius: '10px'}}
         src={banner.imageFile}
         alt={banner[language === 'BA' ? 'titleBosnian' : 'titleEnglish']}
-        className="w-full h-auto object-cover object-center rounded-3xl"
+        className="w-auto h-auto object-cover object-center rounded-3xl"
       />
 
       {/* Tekst ispod slike */}
@@ -28,7 +28,7 @@ export const FeaturedBannerDesktop: React.FC<FeaturedBannerDesktopProps> = ({ ba
         </div>
 
         <div style={{ display: 'flex' }}>
-          <div style={{display:'flex'}}>
+          <div style={{display:'flex',flexDirection:'column'}}>
             <h3
               className="text-base font-bold leading-snug font-sans drop-shadow-sm"
               style={{ color: banner.titleColor, fontSize: '2vh',marginTop:'auto',marginBottom:'auto' }}

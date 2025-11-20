@@ -20,7 +20,6 @@ export const HeroVideoSectionDesktop: React.FC<HeroVideoSectionDesktopProps> = (
   backgroundColor = '#0E0F13',
   banner
 }) => {
-  const heroHeight = Math.max(Math.floor(width * (9 / 16)), 260);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -101,14 +100,14 @@ export const HeroVideoSectionDesktop: React.FC<HeroVideoSectionDesktopProps> = (
               onClick={() => window.open(selectedVideo?.buttonLink || 'https://halvooo.com', '_blank')}
               className="inline-flex items-center gap-1 rounded-full px-6 py-2.5 min-h-[44px] text-[13px] font-semibold uppercase tracking-wide whitespace-nowrap bg-gradient-to-r from-[#7A49F0] via-[#8F59F4] to-[#C86BFA] text-white shadow-md hover:shadow-purple-500/50 active:scale-95 transition-all"
               style={{
-                height: '20px',
-                paddingTop: '12px',
-                paddingBottom: '12px',
+                paddingTop: '0.7vh',
+                paddingBottom: '0.9vh',
                 background: selectedVideo?.buttonBackground || 'linear-gradient(90deg,#7A49F0,#C86BFA)',
                 color: selectedVideo?.buttonTextColor || '#FFFFFF',
                 fontSize: '2vh',
                 marginTop:'auto',
-                marginBottom:'auto'
+                marginBottom:'auto',
+                marginLeft:'auto'
               }}
             >
               <ChevronRight className="h-4 w-4" />

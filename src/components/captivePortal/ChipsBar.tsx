@@ -31,19 +31,27 @@ export const ChipsBar: React.FC<ChipsBarProps> = ({ chips, language }) => {
               <button
                 key={chip.id}
                 onClick={() => chip.link && window.open(chip.link, '_blank')}
-                className="flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-wide shadow-lg transition-transform hover:-translate-y-0.5 hover:shadow-purple-500/40 flex-shrink-0"
-                style={{ background: gradients[idx % gradients.length] }}
+                className="flex items-center gap-2 rounded-full font-semibold tracking-wide shadow-lg transition-transform hover:-translate-y-0.5 hover:shadow-purple-500/40 flex-shrink-0"
+                style={{
+                  background: gradients[idx % gradients.length],
+                  padding: '0.8vh 1.6vh',      // koristi vh za padding
+                  fontSize: '1.6vh',          // font u vh
+                  lineHeight: 1
+                }}
               >
-                <div className="w-5 h-5 flex items-center justify-center">
+                <div
+                  // wrapper koristi vh za dimenzije ikone
+                  style={{ width: '2.2vh', height: '2.2vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
                   {isImageUrl ? (
-                    <img src={chip.icon} alt="" className="w-5 h-5 object-contain" />
+                    <img src={chip.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   ) : IconComponent ? (
-                    <IconComponent className="icon w-5 h-5 text-white" />
+                    <IconComponent style={{ width: '2.2vh', height: '2.2vh', color: 'white' }} />
                   ) : (
-                    <PartyPopper className="icon w-5 h-5 text-white" />
+                    <PartyPopper style={{ width: '2.2vh', height: '2.2vh', color: 'white' }} />
                   )}
                 </div>
-                <span className="text-white">{chipName}</span>
+                <span style={{ color: 'white' }}>{chipName}</span>
               </button>
             );
           })}

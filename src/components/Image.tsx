@@ -4,6 +4,8 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
   fallback?: string;
+  /** CSS classes applied to the wrapper div (optional). Use `className` to style the actual <img>. */
+  wrapperClassName?: string;
 }
 
 /**
@@ -13,14 +15,14 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
  * - Shows fallback or placeholder on error
  * - Lazy loads by default for performance
  */
-export function Image({ src, alt, fallback, className, style, ...props }: ImageProps) {
+export function Image({ src, alt, fallback, className, wrapperClassName, style, ...props }: ImageProps) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
 
   const handleLoad = () => setStatus('loaded');
   const handleError = () => setStatus('error');
 
   return (
-    <div className={`relative inline-block overflow-hidden ${className || ''}`} style={style}>
+    <div className={`relative inline-block overflow-hidden ${wrapperClassName || ''}`} style={style}>
       {/* Loading skeleton */}
       {status === 'loading' && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-pulse" />
@@ -32,7 +34,7 @@ export function Image({ src, alt, fallback, className, style, ...props }: ImageP
           <img
             src={fallback}
             alt={alt}
-            className="w-full h-full object-cover"
+            className={`w-full h-full ${className || 'object-cover'}`}
             {...props}
           />
         ) : (
@@ -49,7 +51,7 @@ export function Image({ src, alt, fallback, className, style, ...props }: ImageP
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
+          className={`w-full h-full ${className || 'object-cover'} transition-opacity duration-300 ${
             status === 'loaded' ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleLoad}

@@ -3,7 +3,6 @@ import { CaptivePortalContent } from './components/CaptivePortalContent'
 import { PortalContentProvider } from './context/PortalContentContext';
 
 export default function App() {
-  // Use window size for full-page responsiveness
   const [dimensions, setDimensions] = React.useState({
     width: window.innerWidth,
     height: window.innerHeight

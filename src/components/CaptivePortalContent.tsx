@@ -93,9 +93,9 @@ export function CaptivePortalContent({ width, height }: CaptivePortalContentProp
             </div>
           )}
           <div className="flex flex-col">
-            <h2 className="text-base font-semibold font-sans mb-0.5" style={titleStyle}>{title}</h2>
+            <h2 className="text-base font-semibold font-sans mb-0.5" style={{ ...titleStyle, fontSize: '1.5vh' }}>{title}</h2>
             {subtitle && (
-              <p className="text-[11px] text-white/60" style={subtitleStyle}>{subtitle}</p>
+              <p className="text-[11px] text-white/60" style={{ ...subtitleStyle, fontSize: '1.2vh' }}>{subtitle}</p>
             )}
           </div>
         </div>
@@ -147,44 +147,46 @@ export function CaptivePortalContent({ width, height }: CaptivePortalContentProp
 
       {/* 2. Explore Our Platforms (Chips) */}
       {renderHeader('chips', 'Explore Our Platforms', 'Istraži Naše Platforme', 'Quick access to core destinations', 'Brzi pristup ključnim destinacijama', 'LayoutGrid')}
-      <section className="px-1 pt-2 pb-4"><ChipsBar chips={chips} language={language} /></section>
+      <section className="px-1 pt-2 pb-4">
+        <ChipsBar chips={chips} language={language} />
+      </section>
 
       {/* 3. Hero Banner Ad */}
       {isMobile &&
-      <FeaturedBanner banner={selectedBanner} language={language} />
+        <FeaturedBanner banner={selectedBanner} language={language} />
       }
 
       {/* 4. City Utility */}
       {renderHeader('cityUtility', 'City Utility', 'Gradski Servisi', 'Weather, local time & currency', 'Vrijeme, lokalno vrijeme i kursne liste', 'CloudSun')}
       {isMobile ?
-      <CityUtility title={language === 'BA' ? (content?.sections?.cityUtility?.titleBosnian || 'Gradski Servisi') : (content?.sections?.cityUtility?.titleEnglish || 'City Utility')} subtitle={language === 'BA' ? content?.sections?.cityUtility?.subtitleBosnian || 'Vrijeme, lokalno vrijeme i kursne liste' : content?.sections?.cityUtility?.subtitleEnglish || 'Weather, local time & currency'} language={language as any} config={content?.utilities} />
-      :
-      <CityUtilityDesktop title={language === 'BA' ? (content?.sections?.cityUtility?.titleBosnian || 'Gradski Servisi') : (content?.sections?.cityUtility?.titleEnglish || 'City Utility')} subtitle={language === 'BA' ? content?.sections?.cityUtility?.subtitleBosnian || 'Vrijeme, lokalno vrijeme i kursne liste' : content?.sections?.cityUtility?.subtitleEnglish || 'Weather, local time & currency'} language={language as any} config={content?.utilities} />
+        <CityUtility title={language === 'BA' ? (content?.sections?.cityUtility?.titleBosnian || 'Gradski Servisi') : (content?.sections?.cityUtility?.titleEnglish || 'City Utility')} subtitle={language === 'BA' ? content?.sections?.cityUtility?.subtitleBosnian || 'Vrijeme, lokalno vrijeme i kursne liste' : content?.sections?.cityUtility?.subtitleEnglish || 'Weather, local time & currency'} language={language as any} config={content?.utilities} />
+        :
+        <CityUtilityDesktop title={language === 'BA' ? (content?.sections?.cityUtility?.titleBosnian || 'Gradski Servisi') : (content?.sections?.cityUtility?.titleEnglish || 'City Utility')} subtitle={language === 'BA' ? content?.sections?.cityUtility?.subtitleBosnian || 'Vrijeme, lokalno vrijeme i kursne liste' : content?.sections?.cityUtility?.subtitleEnglish || 'Weather, local time & currency'} language={language as any} config={content?.utilities} />
       }
       {/* 5. Today’s Recommended Listings (Deals) */}
       {renderHeader('deals', "Today's Recommended Listings", 'Današnje Preporuke', 'Rotated offers from partners', 'Rotirane ponude iz partnera', 'ShoppingBag')}
       <section className="px-6 dealsSection">
         {isMobile ?
-        <DealsSection
-          blocks={blocks}
-          blockStyles={blockStyles}
-          layoutStyle={layoutStyle}
-          mobileColumns={mobileColumns}
-          badgePresets={badgePresets}
-          overlayPresets={overlayPresets}
-          language={language}
-        />
-        :
-        <DealsSectionDesktop
-          blocks={blocks}
-          blockStyles={blockStyles}
-          layoutStyle={layoutStyle}
-          mobileColumns={mobileColumns}
-          badgePresets={badgePresets}
-          overlayPresets={overlayPresets}
-          language={language}
-        />
-}
+          <DealsSection
+            blocks={blocks}
+            blockStyles={blockStyles}
+            layoutStyle={layoutStyle}
+            mobileColumns={mobileColumns}
+            badgePresets={badgePresets}
+            overlayPresets={overlayPresets}
+            language={language}
+          />
+          :
+          <DealsSectionDesktop
+            blocks={blocks}
+            blockStyles={blockStyles}
+            layoutStyle={layoutStyle}
+            mobileColumns={mobileColumns}
+            badgePresets={badgePresets}
+            overlayPresets={overlayPresets}
+            language={language}
+          />
+        }
       </section>
 
       {/* 6. Editors Picks */}
