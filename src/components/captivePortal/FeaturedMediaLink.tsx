@@ -83,6 +83,30 @@ export function FeaturedMediaLink({ item, language, title, subtitle }: FeaturedM
               </div>
             </div>
 
+            {/* Banner iznad grida (16:6) */}
+<div
+  style={{
+    width: '100%',
+    aspectRatio: '16 / 6',
+    borderRadius: '20px',
+    overflow: 'hidden',
+    marginBottom: '24px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.25)',
+    marginBottom:'25px'
+  }}
+>
+  <img
+    src="/assets/banners/launcherbanner.jpg" // PROMIJENI ako želiš drugu sliku
+    alt="Top Banner"
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    }}
+  />
+</div>
+
+
             {/* Grid s igrama 3x2 */}
             <div
               style={{
