@@ -50,92 +50,88 @@ export const DealsSection: React.FC<DealsSectionProps> = ({
   }, [blocks]);
 
   const renderBlock = (block: BlockItem | undefined, idx: number) => {
-    const badge = badgePresets[idx % badgePresets.length];
-    const overlay = overlayPresets[idx % overlayPresets.length];
-    const hasCustomButton = Boolean(blockStyles?.buttonBackground);
-    const buttonTextColor = blockStyles?.buttonTextColor || (hasCustomButton ? '#FFFFFF' : '#14141F');
+  const [open, setOpen] = React.useState(false);
+  const [fadeClass, setFadeClass] = React.useState('');
 
-    // Inline styles for card
-    const cardStyle: React.CSSProperties = {
-      backgroundColor: blockStyles?.blockBackground || 'rgba(20, 20, 28, 0.92)',
-      width: '100%',
-      height: 'auto',
-      borderRadius: "15px"
-    };
+  const toggleOpen = () => {
+    setOpen(true);
+    setFadeClass('overlay-fade-in');
 
-    const isFixedSmall = idx === 1 || idx === 2;
+    // fade-out nakon 5 sekundi
+    setTimeout(() => setFadeClass('overlay-fade-out'), 5000);
+    // ukloni overlay iz DOM-a nakon 5.5s
+    setTimeout(() => setOpen(false), 5500);
+  };
 
-    // PLACEHOLDER
-    if (!block) {
-      if (isFixedSmall) {
-        const placeholderStyle: React.CSSProperties = {
-          ...cardStyle,
-          width: '100%',
-          aspectRatio: '1 / 1',
-          borderRadius: "15px"
-        };
-        return (
-          <div 
-            key={`empty-${idx}`} 
-            className="cp-card group relative flex flex-col items-center justify-center overflow-hidden rounded-[15px] border-2 border-dashed border-white/8 bg-[rgba(12,12,16,0.6)] p-4" 
-            style={placeholderStyle}
-          >
-            <div className="w-full h-full" />
-          </div>
-        );
-      }
+  const cardStyle: React.CSSProperties = {
+    backgroundColor: blockStyles?.blockBackground || 'rgba(20, 20, 28, 0.92)',
+    width: '100%',
+    height: 'auto',
+    borderRadius: "15px",
+  };
 
-      const inlineAspectPlaceholder = idx === 0 ? '9 / 16' : idx === 3 ? '16 / 9' : '1 / 1';
-      const placeholderStyle: React.CSSProperties = { 
-        ...cardStyle, 
-        aspectRatio: inlineAspectPlaceholder,
-        borderRadius: "15px"
-      };
+  const isFixedSmall = idx === 1 || idx === 2;
 
-      return (
-        <div 
-          key={`empty-${idx}`} 
-          className="cp-card group relative flex flex-col items-center justify-center overflow-hidden rounded-[15px] border-2 border-dashed border-white/8 bg-[rgba(12,12,16,0.6)] p-4" 
-          style={placeholderStyle}
-        >
-          <div className="w-full h-full" />
-        </div>
-      );
-    }
-
-    // Determine aspect classes and inline sizing for real cards
-    let aspectClass = '';
-    if (!isFixedSmall) {
-      aspectClass = idx === 3 ? 'aspect-[16/9]' : idx === 0 ? '' : 'aspect-[1/1]';
-    }
-
-    const inlineAspect = isFixedSmall ? undefined : idx === 3 ? '16 / 9' : idx === 0 ? undefined : '1 / 1';
-
-    const mergedStyle: React.CSSProperties = isFixedSmall
-      ? { ...cardStyle, width: '100%', aspectRatio: '1 / 1', borderRadius: "15px" }
-      : idx === 0
-      ? { ...cardStyle, height: '100%', width: '100%', borderRadius: "15px" }
-      : { ...cardStyle, aspectRatio: inlineAspect, borderRadius: "15px" };
+  if (!block) {
+    const inlineAspect = isFixedSmall ? '1 / 1' :
+      idx === 0 ? '9 / 16' :
+      idx === 3 ? '16 / 9' : '1 / 1';
 
     return (
       <div
-        key={block.id || `block-${idx}`}
-        className={`cp-card group relative overflow-hidden rounded-[15px] ring-1 ring-white/12 backdrop-blur-xl shadow-[0_16px_32px_rgba(8,8,12,0.45)] transition-transform duration-300 hover:-translate-y-1 ${aspectClass}`}
-        style={mergedStyle}
+        key={`empty-${idx}`}
+        className="cp-card group relative flex flex-col items-center justify-center overflow-hidden rounded-[15px] border-2 border-dashed border-white/8 bg-[rgba(12,12,16,0.6)] p-4"
+        style={{ ...cardStyle, aspectRatio: inlineAspect }}
       >
-        <div className="h-full w-full relative overflow-hidden">
-          <div className="w-full h-full">
-            <Image 
-              src={block.imageFile} 
-              alt={block.title} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-              wrapperClassName="w-full h-full" 
-            />
-          </div>
-        </div>
+        <div className="w-full h-full" />
       </div>
     );
-  };
+  }
+
+  const inlineAspect = isFixedSmall ? '1 / 1' : idx === 3 ? '16 / 9' : idx === 0 ? undefined : '1 / 1';
+  const mergedStyle: React.CSSProperties = isFixedSmall
+    ? { ...cardStyle, aspectRatio: '1 / 1' }
+    : idx === 0
+    ? { ...cardStyle, height: '100%' }
+    : { ...cardStyle, aspectRatio: inlineAspect };
+
+  return (
+    <div
+      key={block.id || `block-${idx}`}
+      className="cp-card group relative overflow-hidden rounded-[15px] ring-1 ring-white/12 backdrop-blur-xl shadow-[0_16px_32px_rgba(8,8,12,0.45)]"
+      style={mergedStyle}
+      onClick={toggleOpen}
+    >
+      {/* IMAGE */}
+      <div className="h-full w-full relative overflow-hidden">
+        <Image
+          src={block.imageFile}
+          alt={block.title}
+          className="w-full h-full object-cover"
+          wrapperClassName="w-full h-full"
+        />
+      </div>
+
+      {/* OVERLAY */}
+      {open && (
+        <div
+          className={`absolute top-0 left-0 p-4 bg-black/50 rounded-br-lg ${fadeClass}`}
+          style={{ zIndex: 20 }}
+        >
+          <h3 style={{ fontSize: '18px', lineHeight: '22px', marginBottom: '8px', color: 'white', fontWeight: 'bold' }}>
+            {block.title}
+          </h3>
+          <p style={{ fontSize: '14px', lineHeight: '18px', color: 'white' }}>
+            {block.description}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+
 
   const slots = Array.from({ length: 6 }).map((_, i) => blocks[i]);
 

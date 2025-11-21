@@ -165,53 +165,143 @@ export function CaptivePortalContent({ width, height }: CaptivePortalContentProp
       }
       {/* 5. Today’s Recommended Listings (Deals) */}
       {renderHeader('deals', "Today's Recommended Listings", 'Današnje Preporuke', 'Rotated offers from partners', 'Rotirane ponude iz partnera', 'ShoppingBag')}
-      <section className="px-6 dealsSection">
-        {isMobile ?
-          <DealsSection
-            blocks={blocks}
-            blockStyles={blockStyles}
-            layoutStyle={layoutStyle}
-            mobileColumns={mobileColumns}
-            badgePresets={badgePresets}
-            overlayPresets={overlayPresets}
-            language={language}
-          />
-          :
-          <DealsSectionDesktop
-            blocks={blocks}
-            blockStyles={blockStyles}
-            layoutStyle={layoutStyle}
-            mobileColumns={mobileColumns}
-            badgePresets={badgePresets}
-            overlayPresets={overlayPresets}
-            language={language}
-          />
-        }
-      </section>
 
-      {/* 6. Editors Picks */}
-      {renderHeader('editorsPicks', "Pametno Odabrano: Editor's Picks", 'Pametno Odabrano: Odabir Urednika', 'Curated quality content', 'Kvalitetan odabir sadržaja', 'BookOpen')}
-      <EditorsPicks
-        title={language === 'BA' ? (content?.sections?.editorsPicks?.titleBosnian || 'Pametno Odabrano: Odabir Urednika') : (content?.sections?.editorsPicks?.titleEnglish || "Pametno Odabrano: Editor's Picks")}
-        subtitle={language === 'BA' ? (content?.sections?.editorsPicks?.subtitleBosnian || 'Kvalitetan odabir sadržaja') : (content?.sections?.editorsPicks?.subtitleEnglish || 'Curated quality content')}
-        items={content?.editorsPicks || []}
-        language={language as any}
-        count={3}
-      />
+      {isMobile ? (
+        // 👉 MOBILNI — ostaje sve po starom
+        <>
+          <section className="px-6 dealsSection">
+            <DealsSection
+              blocks={blocks}
+              blockStyles={blockStyles}
+              layoutStyle={layoutStyle}
+              mobileColumns={mobileColumns}
+              badgePresets={badgePresets}
+              overlayPresets={overlayPresets}
+              language={language}
+            />
+          </section>{renderHeader(
+            'editorsPicks',
+            "Pametno Odabrano: Editor's Picks",
+            'Pametno Odabrano: Odabir Urednika',
+            'Curated quality content',
+            'Kvalitetan odabir sadržaja',
+            'BookOpen'
+          )}
+          <EditorsPicks
+            title={language === 'BA'
+              ? (content?.sections?.editorsPicks?.titleBosnian || 'Pametno Odabrano: Odabir Urednika')
+              : (content?.sections?.editorsPicks?.titleEnglish || "Pametno Odabrano: Editor's Picks")}
+            subtitle={language === 'BA'
+              ? (content?.sections?.editorsPicks?.subtitleBosnian || 'Kvalitetan odabir sadržaja')
+              : (content?.sections?.editorsPicks?.subtitleEnglish || 'Curated quality content')}
+            items={content?.editorsPicks || []}
+            language={language}
+            count={3}
+          />
 
-      {/* 7. Sarajevo Discovery */}
-      {renderHeader('discovery', 'Sarajevo Discovery', 'Otkrij Sarajevo', 'Highlighted places for today', 'Izdvojena mjesta za danas', 'MapPin')}
-      <DiscoveryStrip
-        title={language === 'BA' ? (content?.sections?.discovery?.titleBosnian || 'Otkrij Sarajevo') : (content?.sections?.discovery?.titleEnglish || 'Sarajevo Discovery')}
-        subtitle={language === 'BA' ? (content?.sections?.discovery?.subtitleBosnian || 'Izdvojena mjesta za danas') : (content?.sections?.discovery?.subtitleEnglish || 'Highlighted places for today')}
-        places={content?.discovery?.places || []}
-        language={language as any}
-        count={3}
-      />
+          {/* Discovery Strip */}
+          {renderHeader(
+            'discovery',
+            'Sarajevo Discovery',
+            'Otkrij Sarajevo',
+            'Highlighted places for today',
+            'Izdvojena mjesta za danas',
+            'MapPin'
+          )}
+          <DiscoveryStrip
+            title={language === 'BA'
+              ? (content?.sections?.discovery?.titleBosnian || 'Otkrij Sarajevo')
+              : (content?.sections?.discovery?.titleEnglish || 'Sarajevo Discovery')}
+            subtitle={language === 'BA'
+              ? (content?.sections?.discovery?.subtitleBosnian || 'Izdvojena mjesta za danas')
+              : (content?.sections?.discovery?.subtitleEnglish || 'Highlighted places for today')}
+            places={content?.discovery?.places || []}
+            language={language}
+            count={3}
+          />
+        </>
+
+      ) : (
+        // 👉 DESKTOP + TABLET — GRID 2 KOLONE
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6" style={{ marginLeft: '30vh', marginRight: '30vh' }}>
+
+          {/* Lijeva kolona */}
+          <div>
+            <DealsSection
+              blocks={blocks}
+              blockStyles={blockStyles}
+              layoutStyle={layoutStyle}
+              mobileColumns={mobileColumns}
+              badgePresets={badgePresets}
+              overlayPresets={overlayPresets}
+              language={language}
+            />
+          </div>
+
+          {/* Desna kolona */}
+          <div className="flex flex-col gap-10">
+
+            {/* Editors Picks */}
+            <div style={{ marginLeft: '-30vh', width: '100vh',marginTop:'-7vh' }}>
+              {renderHeader(
+                'editorsPicks',
+                "Pametno Odabrano: Editor's Picks",
+                'Pametno Odabrano: Odabir Urednika',
+                'Curated quality content',
+                'Kvalitetan odabir sadržaja',
+                'BookOpen'
+              )}
+            </div>
+            <EditorsPicks
+              title={language === 'BA'
+                ? (content?.sections?.editorsPicks?.titleBosnian || 'Pametno Odabrano: Odabir Urednika')
+                : (content?.sections?.editorsPicks?.titleEnglish || "Pametno Odabrano: Editor's Picks")}
+              subtitle={language === 'BA'
+                ? (content?.sections?.editorsPicks?.subtitleBosnian || 'Kvalitetan odabir sadržaja')
+                : (content?.sections?.editorsPicks?.subtitleEnglish || 'Curated quality content')}
+              items={content?.editorsPicks || []}
+              language={language}
+              count={3}
+            />
+
+            {/* Discovery Strip */}
+            <div style={{ marginLeft: '-30vh', width: '100vh' }}>
+              {renderHeader(
+                'discovery',
+                'Sarajevo Discovery',
+                'Otkrij Sarajevo',
+                'Highlighted places for today',
+                'Izdvojena mjesta za danas',
+                'MapPin'
+              )}
+            </div>
+            <DiscoveryStrip
+              title={language === 'BA'
+                ? (content?.sections?.discovery?.titleBosnian || 'Otkrij Sarajevo')
+                : (content?.sections?.discovery?.titleEnglish || 'Sarajevo Discovery')}
+              subtitle={language === 'BA'
+                ? (content?.sections?.discovery?.subtitleBosnian || 'Izdvojena mjesta za danas')
+                : (content?.sections?.discovery?.subtitleEnglish || 'Highlighted places for today')}
+              places={content?.discovery?.places || []}
+              language={language}
+              count={3}
+            />
+            <div style={{ marginLeft: '-30vh', width: '100vh' }}>
+              {renderHeader('quickFun', 'Quick Fun', 'Brza Zabava', 'Play instantly – no signup', 'Igraj odmah – bez registracije', 'Gamepad2')}
+            </div>
+            <FeaturedMediaLink item={content?.quickFun} language={language as any} />
+          </div>
+        </div>
+      )}
+
 
       {/* 8. Quick Fun */}
-      {renderHeader('quickFun', 'Quick Fun', 'Brza Zabava', 'Play instantly – no signup', 'Igraj odmah – bez registracije', 'Gamepad2')}
-      <FeaturedMediaLink item={content?.quickFun} language={language as any} />
+      {isMobile &&
+        <>
+          {renderHeader('quickFun', 'Quick Fun', 'Brza Zabava', 'Play instantly – no signup', 'Igraj odmah – bez registracije', 'Gamepad2')}
+          <FeaturedMediaLink item={content?.quickFun} language={language as any} />
+        </>
+      }
 
       {/* Spacer equal to footer height to prevent overlap */}
       <div className="h-20" />
@@ -219,6 +309,7 @@ export function CaptivePortalContent({ width, height }: CaptivePortalContentProp
       {/* 9. Footer */}
       <div className="mt-3" />
       <MobileFooterBar icons={footer?.icons || []} styles={footerStyles} />
+      
     </div>
   );
 }

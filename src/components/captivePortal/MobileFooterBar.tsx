@@ -18,7 +18,7 @@ export const MobileFooterBar: React.FC<MobileFooterBarProps> = ({ icons, styles 
             // Check if icon is a URL (image path) or a Lucide icon name
             const isImageUrl = icon.icon.startsWith('/') || icon.icon.startsWith('http');
             const IconComponent = !isImageUrl ? ((LucideIcons as any)[icon.icon] || Globe) : null;
-            
+
             return (
               <li key={icon.id} className="flex-1">
                 <button
@@ -26,18 +26,20 @@ export const MobileFooterBar: React.FC<MobileFooterBarProps> = ({ icons, styles 
                   className="mx-auto flex items-center justify-center rounded-xl p-1.5 hover:bg-white/5 active:scale-95 transition-all"
                   style={{ color: styles?.iconColor || '#FFFFFF' }}
                 >
-                  <div className="size-8 rounded-full bg-white/10 grid place-items-center backdrop-blur-sm border border-white/10 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.6)]">
+                  <div className="size-8 grid place-items-center">
                     {isImageUrl ? (
-                      <img 
-                        src={icon.icon} 
+                      <img
+                        src={icon.icon}
                         alt={icon.name}
-                        className="w-5 h-5 object-contain"
-                        style={{ filter: styles?.iconColor && styles.iconColor !== '#FFFFFF' ? `brightness(0) saturate(100%)` : 'none' }}
+                        className="h-5 object-contain" // uklonjena fiksna širina
+                        style={{ width: 'auto', filter: 'none' }}
                       />
+
                     ) : IconComponent && (
                       <IconComponent className="w-4.5 h-4.5" style={{ color: styles?.iconColor || '#FFFFFF' }} />
                     )}
                   </div>
+
                 </button>
               </li>
             );

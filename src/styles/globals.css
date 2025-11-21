@@ -374,8 +374,6 @@ html {
 }
 
 .dealsSection {
-  margin-left: 30vh;
-  margin-right: 30vh;
   padding-top: 2vh;
 
   .card {
@@ -385,21 +383,19 @@ html {
   }
 
 .editorPicks {
-  margin-left: 30vh;
 }
 
 .discoveryStrip {
-  margin-left: 30vh;
 }
 
 .featuredMedia {
-  margin-left: 30vh;
-  margin-right: 30vh;
 }
 
 @media (max-width: 768px) {
   .video-hero {
-    height: 35vh;
+    position: relative;
+    overflow: hidden;
+    height: auto;
 
     .bottomContent {
       height: 23vh;
@@ -456,4 +452,22 @@ html {
     margin-left: 0vh;
     margin-right: 0vh;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.overlay-fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.overlay-fade-out {
+  animation: fadeOut 0.5s forwards;
 }
